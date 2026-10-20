@@ -28,9 +28,9 @@ abstract class ToastManagerMixin {
             case AdvancementToast advancementToast -> ((AdvancementToastAccessor) advancementToast).getAdvancement()
                     .value().display()
                     .ifPresent(display -> toastTextBuilder
-                            .append(display.type().getDisplayName().getString())
+                            .append(display.getType().getDisplayName().getString())
                             .append(' ')
-                            .append(display.title().getString()));
+                            .append(display.getTitle().getString()));
             case RecipeToast _ -> toastTextBuilder.append(I18n.get("recipe.toast.title"))
                     .append(". ")
                     .append(I18n.get("recipe.toast.description"));

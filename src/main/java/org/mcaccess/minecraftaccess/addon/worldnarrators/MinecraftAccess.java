@@ -54,9 +54,9 @@ import net.minecraft.world.level.block.GlowLichenBlock;
 import net.minecraft.world.level.block.HopperBlock;
 import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.ObserverBlock;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
-import net.minecraft.world.level.block.RedstoneWireBlock;
 import net.minecraft.world.level.block.RepeaterBlock;
 import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
@@ -64,7 +64,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.entity.ListBackedContainer;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.entity.SignTextSlot;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -276,8 +275,8 @@ public class MinecraftAccess implements WorldNarrator {
      * @param blockPos block position (in the client world)
      * @param side     if side is provided, then the invoker is ReadCrosshair
      * @return (narration, currentQuery):
-     *     "narration" is the actual one to be narrated through Narrator,
-     *     "currentQuery" is kind of shortened "narration" that is used for checking if target is changed compared to previous.
+     *      "narration" is the actual one to be narrated through Narrator,
+     *      "currentQuery" is kind of shortened "narration" that is used for checking if target is changed compared to previous.
      */
     private static String narrateBlock(BlockPos blockPos, String side) {
         Minecraft client = Minecraft.getInstance();
@@ -338,17 +337,13 @@ public class MinecraftAccess implements WorldNarrator {
     }
 
     private static String getSignInfo(SignBlockEntity signEntity, LocalPlayer player, String narration) {
-        SignTextSlot slot = signEntity.getSlotPlayerIsFacing(player);
+        String[] lines = new String[4];
 
-        return I18n.get(
-                "minecraft_access.read_crosshair.sign_" + (slot == SignTextSlot.FRONT ? "front" : "back") + "_content",
-                narration,
-                signEntity.getText(slot).getMessages(Minecraft.getInstance().isTextFilteringEnabled()).stream()
-                        .map(Component::getString)
-                        .map(String::trim)
-                        .filter(text -> !text.isEmpty())
-                        .collect(Collectors.joining(", "))
-        );
+        for (int i = 0; i < 4; i++) {
+            lines[i] = signEntity.getText(signEntity.isFacingFrontText(player)).getMessage(i, false).getString();
+        }
+        String content = String.join(", ", lines);
+        return I18n.get("minecraft_access.read_crosshair.sign_" + (signEntity.isFacingFrontText(player) ? "front" : "back") + "_content", narration, content);
     }
 
     private static String getVisibleItems(List<ItemStack> itemList, String narration) {
@@ -378,7 +373,7 @@ public class MinecraftAccess implements WorldNarrator {
                 String narration = I18n.get("minecraft_access.read_crosshair.facing", currentNarration, I18n.get("minecraft_access.direction." + facing));
                 yield isReceivingPower ? I18n.get("minecraft_access.read_crosshair.powered", narration) : narration;
             }
-            case RedstoneWireBlock _ -> getRedstoneWireInfo(blockState, blockPos, currentNarration);
+            case RedStoneWireBlock _ -> getRedstoneWireInfo(blockState, blockPos, currentNarration);
             case HopperBlock _ -> {
                 String facing = blockState.getValue(HopperBlock.FACING).getName();
                 String narration = I18n.get("minecraft_access.read_crosshair.facing", currentNarration, I18n.get("minecraft_access.direction." + facing));
@@ -430,7 +425,7 @@ public class MinecraftAccess implements WorldNarrator {
 
     private static @NotNull String getRedstoneWireInfo(BlockState blockState, BlockPos pos, String currentNarration) {
         String narration = currentNarration;
-        int powerLevel = blockState.getValue(RedstoneWireBlock.POWER);
+        int powerLevel = blockState.getValue(RedStoneWireBlock.POWER);
         if (powerLevel > 0) {
             narration = I18n.get("minecraft_access.read_crosshair.redstone_wire_power", narration, powerLevel);
         }
@@ -438,7 +433,7 @@ public class MinecraftAccess implements WorldNarrator {
         List<String> connectedDirections = Direction.Plane.HORIZONTAL.stream().map(direction -> {
             String directionName = I18n.get("minecraft_access.direction." + direction.getName());
 
-            switch (blockState.getValue(RedstoneWireBlock.PROPERTY_BY_DIRECTION.get(direction))) {
+            switch (blockState.getValue(RedStoneWireBlock.PROPERTY_BY_DIRECTION.get(direction))) {
                 case UP -> {
                     return directionName + ' ' + I18n.get("minecraft_access.direction.up");
                 }
@@ -460,7 +455,7 @@ public class MinecraftAccess implements WorldNarrator {
             boolean result = BlockPos.betweenClosedStream(pos.offset(1, -1, 0), pos.offset(1, 1, 0))
                     .anyMatch(blockPos -> {
                         assert Minecraft.getInstance().level != null;
-                        return Minecraft.getInstance().level.getBlockState(blockPos).getBlock() instanceof RedstoneWireBlock;
+                        return Minecraft.getInstance().level.getBlockState(blockPos).getBlock() instanceof RedStoneWireBlock;
                     });
             // If there's no redstone wire on x+1 side,
             // then current wire is not connected to that side,
@@ -524,8 +519,8 @@ public class MinecraftAccess implements WorldNarrator {
     /**
      * @param pos fluid position (in the client world)
      * @return (narration, currentQuery):
-     *     "narration" is the actual one to be narrated through Narrator,
-     *     "currentQuery" is kind of shortened "narration" that is used for checking if target is changed compared to previous.
+     *      "narration" is the actual one to be narrated through Narrator,
+     *      "currentQuery" is kind of shortened "narration" that is used for checking if target is changed compared to previous.
      */
     private static String narrateFluidBlock(BlockPos pos) {
         assert Minecraft.getInstance().level != null;
