@@ -58,6 +58,12 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("durabilityAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public DurabilityAwareness durabilityAwareness = new DurabilityAwareness();
+    @ConfigEntry.Category("eyeOfEnderAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public EyeOfEnderAwareness eyeOfEnderAwareness = new EyeOfEnderAwareness();
+    @ConfigEntry.Category("arrowHitAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ArrowHitAwareness arrowHitAwareness = new ArrowHitAwareness();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -147,6 +153,24 @@ public final class Config implements ConfigData {
         public int volume = 70;
 
         private HostileRadar() {
+        }
+    }
+
+    public static final class EyeOfEnderAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private EyeOfEnderAwareness() {
+        }
+    }
+
+    public static final class ArrowHitAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private ArrowHitAwareness() {
         }
     }
 

@@ -25,6 +25,17 @@ import org.jetbrains.annotations.NotNull;
 public final class NarrationUtils {
     private static final Minecraft CLIENT = Minecraft.getInstance();
     private static final int DIRECTION_SECTORS = 8;
+    private static final int COMPASS_SECTORS = 8;
+    private static final String[] COMPASS_KEYS = {
+            "minecraft_access.util.compass.north",
+            "minecraft_access.util.compass.north_east",
+            "minecraft_access.util.compass.east",
+            "minecraft_access.util.compass.south_east",
+            "minecraft_access.util.compass.south",
+            "minecraft_access.util.compass.south_west",
+            "minecraft_access.util.compass.west",
+            "minecraft_access.util.compass.north_west",
+    };
     private static final String[] DIRECTION_KEYS = {
             "minecraft_access.util.direction.ahead",
             "minecraft_access.util.direction.ahead_right",
@@ -109,6 +120,21 @@ public final class NarrationUtils {
         double sectorDegrees = 360.0 / DIRECTION_SECTORS;
         int sector = Mth.floor((relative + sectorDegrees / 2) / sectorDegrees) & (DIRECTION_SECTORS - 1);
         return I18n.get(DIRECTION_KEYS[sector]);
+    }
+
+    /**
+     * Which way on the map {@code to} lies from {@code from}, in eighths of the compass, north first.
+     *
+     * @param from where the direction starts
+     * @param to where it points
+     * @return the compass direction, in the language of the game
+     */
+    public static String narrateCompassDirection(Vec3 from, Vec3 to) {
+        double bearing = Math.toDegrees(Math.atan2(to.x() - from.x(), from.z() - to.z()));
+        double sectorDegrees = 360.0 / COMPASS_SECTORS;
+        double wrapped = bearing < 0 ? bearing + 360 : bearing;
+        int sector = (int) Math.floor((wrapped + sectorDegrees / 2) / sectorDegrees);
+        return I18n.get(COMPASS_KEYS[sector % COMPASS_SECTORS]);
     }
 
     public static String getDifferenceString(int blocks, String key1, String key2) {

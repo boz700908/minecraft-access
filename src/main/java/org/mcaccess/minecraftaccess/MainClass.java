@@ -23,9 +23,11 @@ import org.jetbrains.annotations.UnmodifiableView;
 import org.mcaccess.minecraftaccess.api.AddonRegistry;
 import org.mcaccess.minecraftaccess.api.MinecraftAccessAddon;
 import org.mcaccess.minecraftaccess.features.AccessMenu;
+import org.mcaccess.minecraftaccess.features.ArrowHitAwareness;
 import org.mcaccess.minecraftaccess.features.BiomeIndicator;
 import org.mcaccess.minecraftaccess.features.CameraControls;
 import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
+import org.mcaccess.minecraftaccess.features.EyeOfEnderAwareness;
 import org.mcaccess.minecraftaccess.features.FallDetector;
 import org.mcaccess.minecraftaccess.features.HUDStatus;
 import org.mcaccess.minecraftaccess.features.HostileRadar;
@@ -131,11 +133,13 @@ public final class MainClass {
         }
 
         registrars.registerModule(new AccessMenu());
+        registrars.registerModule(new ArrowHitAwareness());
         registrars.registerModule(new BiomeIndicator());
         registrars.registerModule(new CameraControls());
         registrars.registerModule(new DurabilityAwareness());
         registrars.registerModule(new HostileRadar());
         registrars.registerModule(new ToolHarvestAwareness());
+        registrars.registerModule(new EyeOfEnderAwareness());
         registrars.registerModule(new FallDetector());
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());
