@@ -35,6 +35,7 @@ import org.mcaccess.minecraftaccess.features.HostileRadar;
 import org.mcaccess.minecraftaccess.features.MenuFix;
 import org.mcaccess.minecraftaccess.features.MiningRadar;
 import org.mcaccess.minecraftaccess.features.MouseSimulation;
+import org.mcaccess.minecraftaccess.features.MovementAssist;
 import org.mcaccess.minecraftaccess.features.MovementRadar;
 import org.mcaccess.minecraftaccess.features.NarrateCrosshair;
 import org.mcaccess.minecraftaccess.features.NarrateHeldItem;
@@ -148,6 +149,7 @@ public final class MainClass {
         registrars.registerModule(new InventoryControls());
         registrars.registerModule(new MenuFix());
         registrars.registerModule(new MiningRadar());
+        registrars.registerModule(new MovementAssist());
         registrars.registerModule(new MovementRadar());
         registrars.registerModule(new MouseSimulation());
         registrars.registerModule(new NarrateCrosshair());

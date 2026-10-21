@@ -49,6 +49,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("miningRadar")
     @ConfigEntry.Gui.TransitiveObject
     public MiningRadar miningRadar = new MiningRadar();
+    @ConfigEntry.Category("movementAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public MovementAssist movementAssist = new MovementAssist();
     @ConfigEntry.Category("movementRadar")
     @ConfigEntry.Gui.TransitiveObject
     public MovementRadar movementRadar = new MovementRadar();
@@ -140,6 +143,13 @@ public final class Config implements ConfigData {
         public int volume = 60;
 
         private MiningRadar() {
+        }
+    }
+
+    public static final class MovementAssist {
+        public boolean enabled = true;
+
+        private MovementAssist() {
         }
     }
 
