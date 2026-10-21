@@ -53,6 +53,7 @@ import org.mcaccess.minecraftaccess.features.ShoulderParrot;
 import org.mcaccess.minecraftaccess.features.TameNotifier;
 import org.mcaccess.minecraftaccess.features.TimeIndicator;
 import org.mcaccess.minecraftaccess.features.ToolHarvestAwareness;
+import org.mcaccess.minecraftaccess.features.TreeChoppingAssist;
 import org.mcaccess.minecraftaccess.features.XPIndicator;
 import org.mcaccess.minecraftaccess.features.inventory_controls.InventoryControls;
 import org.mcaccess.minecraftaccess.features.point_of_interest.POIManager;
@@ -157,6 +158,7 @@ public final class MainClass {
         registrars.registerModule(new DurabilityAwareness());
         registrars.registerModule(new HostileRadar());
         registrars.registerModule(new TameNotifier());
+        registrars.registerModule(new TreeChoppingAssist());
         registrars.registerModule(new ToolHarvestAwareness());
         registrars.registerModule(new ElytraAwareness());
         registrars.registerModule(new EyeOfEnderAwareness());

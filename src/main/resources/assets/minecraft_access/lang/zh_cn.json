@@ -375,6 +375,7 @@
     "minecraft_access.tool_harvest.pickaxe": "%s 需要镐子",
     "minecraft_access.tool_harvest.shovel": "%s 需要锹",
     "minecraft_access.tool_harvest.stone": "%s 需要石级工具",
+    "minecraft_access.tree_chopping.done": "附近没有相连的原木了",
     "minecraft_access.util.compass.east": "东",
     "minecraft_access.util.compass.north": "北",
     "minecraft_access.util.compass.north_east": "东北",
@@ -436,6 +437,7 @@
     "text.autoconfig.minecraft-access.category.speechSettings": "语音设置",
     "text.autoconfig.minecraft-access.category.tameNotification": "驯服提示",
     "text.autoconfig.minecraft-access.category.toolHarvestAwareness": "工具收割提示",
+    "text.autoconfig.minecraft-access.category.treeChoppingAssist": "砍树辅助",
     "text.autoconfig.minecraft-access.option.accessMenu.enabled": "已启用",
     "text.autoconfig.minecraft-access.option.accessMenu.fluidDetector": "流体检测",
     "text.autoconfig.minecraft-access.option.accessMenu.fluidDetector.range": "范围",
@@ -547,6 +549,7 @@
     "text.autoconfig.minecraft-access.option.speechSettings.speechRate": "语音速度（百分比）",
     "text.autoconfig.minecraft-access.option.tameNotification.enabled": "按弹道引导远程武器瞄准",
     "text.autoconfig.minecraft-access.option.toolHarvestAwareness.enabled": "手持工具无法收割方块时提示",
+    "text.autoconfig.minecraft-access.option.treeChoppingAssist.enabled": "按弹道引导远程武器瞄准",
     "text.autoconfig.minecraft-access.option.use12HourTimeFormat": "使用十二小时制格式朗读时间",
     "text.autoconfig.minecraft-access.title": "Minecraft Access 设置"
 }

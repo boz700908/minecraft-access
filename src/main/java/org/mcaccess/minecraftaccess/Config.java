@@ -91,6 +91,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("mountJumpCue")
     @ConfigEntry.Gui.TransitiveObject
     public MountJumpCue mountJumpCue = new MountJumpCue();
+    @ConfigEntry.Category("treeChoppingAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public TreeChoppingAssist treeChoppingAssist = new TreeChoppingAssist();
     @ConfigEntry.Category("fishingCatch")
     @ConfigEntry.Gui.TransitiveObject
     public FishingCatch fishingCatch = new FishingCatch();
@@ -434,6 +437,13 @@ public final class Config implements ConfigData {
         public boolean enabled = true;
 
         private MountJumpCue() {
+        }
+    }
+
+    public static final class TreeChoppingAssist {
+        public boolean enabled = true;
+
+        private TreeChoppingAssist() {
         }
     }
 
