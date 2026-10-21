@@ -46,6 +46,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("fallDetector")
     @ConfigEntry.Gui.TransitiveObject
     public FallDetector fallDetector = new FallDetector();
+    @ConfigEntry.Category("hostileRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public HostileRadar hostileRadar = new HostileRadar();
     @ConfigEntry.Category("durabilityAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public DurabilityAwareness durabilityAwareness = new DurabilityAwareness();
@@ -108,6 +111,18 @@ public final class Config implements ConfigData {
         public int androidSpeechPitch = 50;
 
         private SpeechSettings() {
+        }
+    }
+
+    public static final class HostileRadar {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+        public int range = 16;
+        public boolean meleeRangeAlertEnabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 70;
+
+        private HostileRadar() {
         }
     }
 
