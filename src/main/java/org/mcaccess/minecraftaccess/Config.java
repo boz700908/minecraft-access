@@ -49,6 +49,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("miningRadar")
     @ConfigEntry.Gui.TransitiveObject
     public MiningRadar miningRadar = new MiningRadar();
+    @ConfigEntry.Category("movementRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public MovementRadar movementRadar = new MovementRadar();
     @ConfigEntry.Category("toolHarvestAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public ToolHarvestAwareness toolHarvestAwareness = new ToolHarvestAwareness();
@@ -137,6 +140,17 @@ public final class Config implements ConfigData {
         public int volume = 60;
 
         private MiningRadar() {
+        }
+    }
+
+    public static final class MovementRadar {
+        public boolean enabled = false;
+        @BoundedDiscrete(min = 1, max = 16)
+        public int range = 4;
+        @BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private MovementRadar() {
         }
     }
 
