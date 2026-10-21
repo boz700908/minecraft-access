@@ -110,7 +110,7 @@ public class FallWarning implements BalmClientModule {
         double prevX = player.getX();
         double prevZ = player.getZ();
         BlockPos landing = null;
-        double dropHeight;
+        double dropHeight = 0;
         boolean dangerous = false;
 
         for (double d = SAMPLE_STEP; d <= lookahead + 1.0e-9; d += SAMPLE_STEP) {
