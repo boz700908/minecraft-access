@@ -167,7 +167,9 @@ public class HostileRadar implements BalmClientModule {
         state.ticksUntilMeleeAlert = MELEE_ALERT_INTERVAL_TICKS;
     }
 
-    /** The eighth of the compass around the player that {@code pos} falls in, 0 being straight ahead. */
+    /**
+     * The eighth of the compass around the player that {@code pos} falls in, 0 being straight ahead.
+     */
     private static int sectorTo(LocalPlayer player, Vec3 pos) {
         double bearing = Math.toDegrees(Math.atan2(pos.x - player.getX(), pos.z - player.getZ()));
         double relative = Mth.wrapDegrees(bearing - player.getYRot());
