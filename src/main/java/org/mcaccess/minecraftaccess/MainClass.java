@@ -41,6 +41,7 @@ import org.mcaccess.minecraftaccess.features.HUDStatus;
 import org.mcaccess.minecraftaccess.features.HostileRadar;
 import org.mcaccess.minecraftaccess.features.MenuFix;
 import org.mcaccess.minecraftaccess.features.MiningRadar;
+import org.mcaccess.minecraftaccess.features.MountJumpCue;
 import org.mcaccess.minecraftaccess.features.MouseSimulation;
 import org.mcaccess.minecraftaccess.features.MovementAssist;
 import org.mcaccess.minecraftaccess.features.MovementRadar;
@@ -162,6 +163,7 @@ public final class MainClass {
         registrars.registerModule(new FallDetector());
         registrars.registerModule(new FallWarning());
         registrars.registerModule(new FishingCatchNarrator());
+        registrars.registerModule(new MountJumpCue());
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());
         registrars.registerModule(new MenuFix());

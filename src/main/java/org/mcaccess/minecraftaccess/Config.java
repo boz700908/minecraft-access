@@ -88,6 +88,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("bowBeacon")
     @ConfigEntry.Gui.TransitiveObject
     public BowBeacon bowBeacon = new BowBeacon();
+    @ConfigEntry.Category("mountJumpCue")
+    @ConfigEntry.Gui.TransitiveObject
+    public MountJumpCue mountJumpCue = new MountJumpCue();
     @ConfigEntry.Category("fishingCatch")
     @ConfigEntry.Gui.TransitiveObject
     public FishingCatch fishingCatch = new FishingCatch();
@@ -424,6 +427,13 @@ public final class Config implements ConfigData {
         public int volume = 100;
 
         private BowBeacon() {
+        }
+    }
+
+    public static final class MountJumpCue {
+        public boolean enabled = true;
+
+        private MountJumpCue() {
         }
     }
 
