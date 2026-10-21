@@ -17,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ClipContext;
@@ -124,9 +125,11 @@ public class MiningRadar implements BalmClientModule {
     }
 
     private static boolean isValuableOre(BlockState state) {
-        return state.is(BlockTags.COAL_ORES) || state.is(BlockTags.IRON_ORES) || state.is(BlockTags.COPPER_ORES)
-                || state.is(BlockTags.GOLD_ORES) || state.is(BlockTags.REDSTONE_ORES) || state.is(BlockTags.LAPIS_ORES)
-                || state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES)
+        // Only iron, copper and gold have a block tag of their own; the rest are declared as item tags.
+        return state.is(BlockItemTags.COAL_ORES.block()) || state.is(BlockTags.IRON_ORES)
+                || state.is(BlockTags.COPPER_ORES) || state.is(BlockTags.GOLD_ORES)
+                || state.is(BlockItemTags.REDSTONE_ORES.block()) || state.is(BlockItemTags.LAPIS_ORES.block())
+                || state.is(BlockItemTags.DIAMOND_ORES.block()) || state.is(BlockItemTags.EMERALD_ORES.block())
                 || state.is(Blocks.NETHER_GOLD_ORE) || state.is(Blocks.NETHER_QUARTZ_ORE)
                 || state.is(Blocks.ANCIENT_DEBRIS);
     }
