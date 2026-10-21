@@ -43,6 +43,7 @@ import org.mcaccess.minecraftaccess.features.NarrateCrosshair;
 import org.mcaccess.minecraftaccess.features.NarrateHeldItem;
 import org.mcaccess.minecraftaccess.features.PlayerStatus;
 import org.mcaccess.minecraftaccess.features.PositionNarrator;
+import org.mcaccess.minecraftaccess.features.ShoulderParrot;
 import org.mcaccess.minecraftaccess.features.TimeIndicator;
 import org.mcaccess.minecraftaccess.features.ToolHarvestAwareness;
 import org.mcaccess.minecraftaccess.features.XPIndicator;
@@ -166,6 +167,7 @@ public final class MainClass {
         registrars.registerModule(poiManager.poiEntities);
         registrars.registerModule(poiManager.poiMarking);
         registrars.registerModule(new PositionNarrator());
+        registrars.registerModule(new ShoulderParrot());
         registrars.registerModule(new TimeIndicator());
         registrars.registerModule(new XPIndicator());
     }
