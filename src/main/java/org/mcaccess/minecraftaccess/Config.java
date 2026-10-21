@@ -97,6 +97,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("oreMiningAssist")
     @ConfigEntry.Gui.TransitiveObject
     public OreMiningAssist oreMiningAssist = new OreMiningAssist();
+    @ConfigEntry.Category("animalFeedingCue")
+    @ConfigEntry.Gui.TransitiveObject
+    public AnimalFeedingCue animalFeedingCue = new AnimalFeedingCue();
     @ConfigEntry.Category("titleNarration")
     @ConfigEntry.Gui.TransitiveObject
     public TitleNarration titleNarration = new TitleNarration();
@@ -457,6 +460,13 @@ public final class Config implements ConfigData {
         public boolean enabled = true;
 
         private OreMiningAssist() {
+        }
+    }
+
+    public static final class AnimalFeedingCue {
+        public boolean enabled = true;
+
+        private AnimalFeedingCue() {
         }
     }
 

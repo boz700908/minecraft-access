@@ -24,6 +24,7 @@ import org.mcaccess.minecraftaccess.api.AddonRegistry;
 import org.mcaccess.minecraftaccess.api.MinecraftAccessAddon;
 import org.mcaccess.minecraftaccess.features.AccessMenu;
 import org.mcaccess.minecraftaccess.features.AngleAssist;
+import org.mcaccess.minecraftaccess.features.AnimalFeedingCue;
 import org.mcaccess.minecraftaccess.features.ArrowHitAwareness;
 import org.mcaccess.minecraftaccess.features.BiomeIndicator;
 import org.mcaccess.minecraftaccess.features.BowBeacon;
@@ -150,6 +151,7 @@ public final class MainClass {
 
         registrars.registerModule(new AccessMenu());
         registrars.registerModule(new AngleAssist());
+        registrars.registerModule(new AnimalFeedingCue());
         registrars.registerModule(new ArrowHitAwareness());
         registrars.registerModule(new BiomeIndicator());
         registrars.registerModule(new CameraControls());
