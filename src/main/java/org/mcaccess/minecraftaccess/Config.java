@@ -58,6 +58,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("durabilityAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public DurabilityAwareness durabilityAwareness = new DurabilityAwareness();
+    @ConfigEntry.Category("debugOverlay")
+    @ConfigEntry.Gui.TransitiveObject
+    public DebugOverlay debugOverlay = new DebugOverlay();
     @ConfigEntry.Category("eyeOfEnderAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public EyeOfEnderAwareness eyeOfEnderAwareness = new EyeOfEnderAwareness();
@@ -153,6 +156,13 @@ public final class Config implements ConfigData {
         public int volume = 70;
 
         private HostileRadar() {
+        }
+    }
+
+    public static final class DebugOverlay {
+        public boolean enabled = true;
+
+        private DebugOverlay() {
         }
     }
 

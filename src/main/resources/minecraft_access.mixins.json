@@ -26,6 +26,7 @@
         "ClientPacketListenerMixin",
         "ClientTextTooltipAccessor",
         "CreativeModeInventoryScreenAccessor",
+        "DebugScreenOverlayAccessorMixin",
         "EditBoxAccessor",
         "EditBoxMixin",
         "EntityAccessor",
