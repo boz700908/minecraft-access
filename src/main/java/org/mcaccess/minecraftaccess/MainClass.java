@@ -27,6 +27,7 @@ import org.mcaccess.minecraftaccess.features.AngleAssist;
 import org.mcaccess.minecraftaccess.features.ArrowHitAwareness;
 import org.mcaccess.minecraftaccess.features.BiomeIndicator;
 import org.mcaccess.minecraftaccess.features.CameraControls;
+import org.mcaccess.minecraftaccess.features.CombatBeacon;
 import org.mcaccess.minecraftaccess.features.CombatLock;
 import org.mcaccess.minecraftaccess.features.DebugOverlayNavigator;
 import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
@@ -145,6 +146,7 @@ public final class MainClass {
         registrars.registerModule(new ArrowHitAwareness());
         registrars.registerModule(new BiomeIndicator());
         registrars.registerModule(new CameraControls());
+        registrars.registerModule(new CombatBeacon());
         registrars.registerModule(new CombatLock());
         registrars.registerModule(new DebugOverlayNavigator());
         registrars.registerModule(new DurabilityAwareness());

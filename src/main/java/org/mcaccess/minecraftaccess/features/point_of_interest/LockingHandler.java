@@ -224,6 +224,14 @@ public class LockingHandler implements BalmClientModule {
         return lockedOnBlockPos != null || lockedOnEntity != null;
     }
 
+    /**
+     * The entity the player is locked on to, or {@code null} when nothing is locked on or the lock is on a block.
+     * For features that follow the aim rather than steer it, such as {@code CombatBeacon}.
+     */
+    public Entity getLockedEntity() {
+        return lockedOnEntity;
+    }
+
     private void unlock(boolean narrate, boolean isStillValid) {
         lockedOnEntity = null;
         entriesOfLockedOnBlock = null;

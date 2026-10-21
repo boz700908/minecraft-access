@@ -82,6 +82,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("combatLock")
     @ConfigEntry.Gui.TransitiveObject
     public CombatLock combatLock = new CombatLock();
+    @ConfigEntry.Category("combatBeacon")
+    @ConfigEntry.Gui.TransitiveObject
+    public CombatBeacon combatBeacon = new CombatBeacon();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -389,6 +392,19 @@ public final class Config implements ConfigData {
         public int range = 32;
 
         private CombatLock() {
+        }
+    }
+
+    public static final class CombatBeacon {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
+        @ConfigEntry.Gui.Tooltip
+        public int range = 32;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int volume = 100;
+
+        private CombatBeacon() {
         }
     }
 
