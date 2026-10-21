@@ -94,6 +94,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("treeChoppingAssist")
     @ConfigEntry.Gui.TransitiveObject
     public TreeChoppingAssist treeChoppingAssist = new TreeChoppingAssist();
+    @ConfigEntry.Category("oreMiningAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public OreMiningAssist oreMiningAssist = new OreMiningAssist();
     @ConfigEntry.Category("titleNarration")
     @ConfigEntry.Gui.TransitiveObject
     public TitleNarration titleNarration = new TitleNarration();
@@ -447,6 +450,13 @@ public final class Config implements ConfigData {
         public boolean enabled = true;
 
         private TreeChoppingAssist() {
+        }
+    }
+
+    public static final class OreMiningAssist {
+        public boolean enabled = true;
+
+        private OreMiningAssist() {
         }
     }
 

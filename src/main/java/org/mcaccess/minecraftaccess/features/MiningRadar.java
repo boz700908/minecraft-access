@@ -124,7 +124,7 @@ public class MiningRadar implements BalmClientModule {
                 distance, NarrationUtils.narrateRelativeDirection(center)), true);
     }
 
-    private static boolean isValuableOre(BlockState state) {
+    static boolean isValuableOre(BlockState state) {
         // Only iron, copper and gold have a block tag of their own; the rest are declared as item tags.
         return state.is(BlockItemTags.COAL_ORES.block()) || state.is(BlockTags.IRON_ORES)
                 || state.is(BlockTags.COPPER_ORES) || state.is(BlockTags.GOLD_ORES)
@@ -138,7 +138,7 @@ public class MiningRadar implements BalmClientModule {
      * Whether a raycast from the player's eye reaches the block itself. Ore behind stone, or alone in a sealed
      * pocket, stops the ray short, which is exactly what the player could and could not see.
      */
-    private static boolean isVisible(Level level, BlockPos pos, Vec3 eye) {
+    static boolean isVisible(Level level, BlockPos pos, Vec3 eye) {
         HitResult hit = level.clip(new ClipContext(eye, Vec3.atCenterOf(pos), ClipContext.Block.COLLIDER,
                 ClipContext.Fluid.NONE, CollisionContext.empty()));
         return hit instanceof BlockHitResult blockHit && blockHit.getBlockPos().equals(pos);

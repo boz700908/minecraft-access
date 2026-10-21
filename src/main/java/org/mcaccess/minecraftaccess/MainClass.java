@@ -47,6 +47,7 @@ import org.mcaccess.minecraftaccess.features.MovementAssist;
 import org.mcaccess.minecraftaccess.features.MovementRadar;
 import org.mcaccess.minecraftaccess.features.NarrateCrosshair;
 import org.mcaccess.minecraftaccess.features.NarrateHeldItem;
+import org.mcaccess.minecraftaccess.features.OreMiningAssist;
 import org.mcaccess.minecraftaccess.features.PlayerStatus;
 import org.mcaccess.minecraftaccess.features.PositionNarrator;
 import org.mcaccess.minecraftaccess.features.ShoulderParrot;
@@ -177,6 +178,7 @@ public final class MainClass {
         registrars.registerModule(new MouseSimulation());
         registrars.registerModule(new NarrateCrosshair());
         registrars.registerModule(new NarrateHeldItem());
+        registrars.registerModule(new OreMiningAssist());
         registrars.registerModule(new PlayerStatus());
         poiManager = new POIManager();
         registrars.registerModule(poiManager.lockingHandler);
