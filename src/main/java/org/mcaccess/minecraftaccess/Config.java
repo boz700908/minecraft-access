@@ -154,7 +154,7 @@ public final class Config implements ConfigData {
 
     public static final class ElytraAwareness {
         public boolean enabled = true;
-        @BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
         public int volume = 100;
 
         private ElytraAwareness() {
@@ -163,11 +163,11 @@ public final class Config implements ConfigData {
 
     public static final class FallWarning {
         public boolean enabled = true;
-        @BoundedDiscrete(min = 1, max = 64)
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
         public int threshold = 3;
-        @BoundedDiscrete(min = 0.2, max = 5.0)
+        @ConfigEntry.BoundedDiscrete(min = 0.2, max = 5.0)
         public double lookaheadSeconds = 1.0;
-        @BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
         public int volume = 100;
 
         private FallWarning() {
@@ -183,9 +183,9 @@ public final class Config implements ConfigData {
 
     public static final class MovementRadar {
         public boolean enabled = false;
-        @BoundedDiscrete(min = 1, max = 16)
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
         public int range = 4;
-        @BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
         public int volume = 100;
 
         private MovementRadar() {
