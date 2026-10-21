@@ -9,6 +9,10 @@ on:
         type: boolean
         required: false
         default: false
+      artifactName:
+        type: string
+        required: false
+        default: minecraft-access
     secrets:
       centralUsername:
         required: false
@@ -58,7 +62,7 @@ jobs:
           cp $(ls -1 ./build/libs/minecraft-access-*.jar | awk '{ print length, $0 }' | sort -n | cut -d" " -f2- | head -n 1) .
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: "minecraft-access"
+          name: ${{ inputs.artifactName }}
           path: "./*.jar"
       - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         if: github.event_name != 'pull_request'
