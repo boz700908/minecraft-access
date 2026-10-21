@@ -26,6 +26,7 @@ import org.mcaccess.minecraftaccess.features.AccessMenu;
 import org.mcaccess.minecraftaccess.features.ArrowHitAwareness;
 import org.mcaccess.minecraftaccess.features.BiomeIndicator;
 import org.mcaccess.minecraftaccess.features.CameraControls;
+import org.mcaccess.minecraftaccess.features.CombatLock;
 import org.mcaccess.minecraftaccess.features.DebugOverlayNavigator;
 import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
 import org.mcaccess.minecraftaccess.features.ElytraAwareness;
@@ -142,6 +143,7 @@ public final class MainClass {
         registrars.registerModule(new ArrowHitAwareness());
         registrars.registerModule(new BiomeIndicator());
         registrars.registerModule(new CameraControls());
+        registrars.registerModule(new CombatLock());
         registrars.registerModule(new DebugOverlayNavigator());
         registrars.registerModule(new DurabilityAwareness());
         registrars.registerModule(new HostileRadar());

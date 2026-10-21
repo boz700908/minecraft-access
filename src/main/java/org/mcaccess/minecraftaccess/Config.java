@@ -79,6 +79,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("arrowHitAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public ArrowHitAwareness arrowHitAwareness = new ArrowHitAwareness();
+    @ConfigEntry.Category("combatLock")
+    @ConfigEntry.Gui.TransitiveObject
+    public CombatLock combatLock = new CombatLock();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -377,6 +380,15 @@ public final class Config implements ConfigData {
         public int delay = 2500;
 
         private FallDetector() {
+        }
+    }
+
+    public static final class CombatLock {
+        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
+        @ConfigEntry.Gui.Tooltip
+        public int range = 32;
+
+        private CombatLock() {
         }
     }
 
