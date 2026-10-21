@@ -25,6 +25,7 @@ import org.mcaccess.minecraftaccess.api.MinecraftAccessAddon;
 import org.mcaccess.minecraftaccess.features.AccessMenu;
 import org.mcaccess.minecraftaccess.features.BiomeIndicator;
 import org.mcaccess.minecraftaccess.features.CameraControls;
+import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
 import org.mcaccess.minecraftaccess.features.FallDetector;
 import org.mcaccess.minecraftaccess.features.HUDStatus;
 import org.mcaccess.minecraftaccess.features.MenuFix;
@@ -129,6 +130,7 @@ public final class MainClass {
         registrars.registerModule(new AccessMenu());
         registrars.registerModule(new BiomeIndicator());
         registrars.registerModule(new CameraControls());
+        registrars.registerModule(new DurabilityAwareness());
         registrars.registerModule(new FallDetector());
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());

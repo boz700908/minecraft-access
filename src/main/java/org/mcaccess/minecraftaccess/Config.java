@@ -46,6 +46,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("fallDetector")
     @ConfigEntry.Gui.TransitiveObject
     public FallDetector fallDetector = new FallDetector();
+    @ConfigEntry.Category("durabilityAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public DurabilityAwareness durabilityAwareness = new DurabilityAwareness();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -105,6 +108,17 @@ public final class Config implements ConfigData {
         public int androidSpeechPitch = 50;
 
         private SpeechSettings() {
+        }
+    }
+
+    public static final class DurabilityAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int warningThreshold = 20;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int criticalThreshold = 5;
+
+        private DurabilityAwareness() {
         }
     }
 
