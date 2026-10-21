@@ -165,7 +165,6 @@ public final class Config implements ConfigData {
         public boolean enabled = true;
         @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
         public int threshold = 3;
-        @ConfigEntry.BoundedDiscrete(min = 0.2, max = 5.0)
         public double lookaheadSeconds = 1.0;
         @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
         public int volume = 100;
