@@ -547,6 +547,8 @@ public final class Config implements ConfigData {
     public static final class AccessMenu {
         public boolean enabled = true;
         @ConfigEntry.Gui.CollapsibleObject
+        public FlatAreaFinder flatAreaFinder = new FlatAreaFinder();
+        @ConfigEntry.Gui.CollapsibleObject
         public FluidDetector fluidDetector = new FluidDetector();
         @ConfigExtension.Registry(registry = AccessMenuFunction.class, i18n = "access_menu_function")
         public Identifier[] functions = new Identifier[]{
@@ -555,6 +557,7 @@ public final class Config implements ConfigData {
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "light_level"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_water"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_lava"),
+                Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_flat_area"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "biome"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "time"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "xp"),
@@ -566,6 +569,32 @@ public final class Config implements ConfigData {
         public ShortcutBar shortcutBar = new ShortcutBar();
 
         private AccessMenu() {
+        }
+
+        /**
+         * What "big enough to build on" means, and how far to look for it. The range and the height band together
+         * keep the scan to the ground the player could walk to, so a search never takes long and never reaches into
+         * chunks that are not loaded.
+         */
+        public static final class FlatAreaFinder {
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+            @ConfigEntry.Gui.Tooltip
+            public int width = 5;
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+            @ConfigEntry.Gui.Tooltip
+            public int depth = 5;
+            @ConfigEntry.BoundedDiscrete(min = 4, max = 32)
+            @ConfigEntry.Gui.Tooltip
+            public int range = 16;
+            @ConfigEntry.BoundedDiscrete(min = 2, max = 32)
+            @ConfigEntry.Gui.Tooltip
+            public int verticalRange = 8;
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 8)
+            @ConfigEntry.Gui.Tooltip
+            public int maxResults = 3;
+
+            private FlatAreaFinder() {
+            }
         }
 
         public static final class FluidDetector {
