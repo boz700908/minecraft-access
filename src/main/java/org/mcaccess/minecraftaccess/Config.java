@@ -88,6 +88,12 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("bowBeacon")
     @ConfigEntry.Gui.TransitiveObject
     public BowBeacon bowBeacon = new BowBeacon();
+    @ConfigEntry.Category("fishingCatch")
+    @ConfigEntry.Gui.TransitiveObject
+    public FishingCatch fishingCatch = new FishingCatch();
+    @ConfigEntry.Category("tameNotification")
+    @ConfigEntry.Gui.TransitiveObject
+    public TameNotification tameNotification = new TameNotification();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -418,6 +424,20 @@ public final class Config implements ConfigData {
         public int volume = 100;
 
         private BowBeacon() {
+        }
+    }
+
+    public static final class FishingCatch {
+        public boolean enabled = true;
+
+        private FishingCatch() {
+        }
+    }
+
+    public static final class TameNotification {
+        public boolean enabled = true;
+
+        private TameNotification() {
         }
     }
 
