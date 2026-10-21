@@ -30,6 +30,7 @@ import org.mcaccess.minecraftaccess.features.DebugOverlayNavigator;
 import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
 import org.mcaccess.minecraftaccess.features.EyeOfEnderAwareness;
 import org.mcaccess.minecraftaccess.features.FallDetector;
+import org.mcaccess.minecraftaccess.features.FallWarning;
 import org.mcaccess.minecraftaccess.features.HUDStatus;
 import org.mcaccess.minecraftaccess.features.HostileRadar;
 import org.mcaccess.minecraftaccess.features.MenuFix;
@@ -145,6 +146,7 @@ public final class MainClass {
         registrars.registerModule(new ToolHarvestAwareness());
         registrars.registerModule(new EyeOfEnderAwareness());
         registrars.registerModule(new FallDetector());
+        registrars.registerModule(new FallWarning());
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());
         registrars.registerModule(new MenuFix());

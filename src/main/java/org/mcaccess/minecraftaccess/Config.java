@@ -49,6 +49,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("miningRadar")
     @ConfigEntry.Gui.TransitiveObject
     public MiningRadar miningRadar = new MiningRadar();
+    @ConfigEntry.Category("fallWarning")
+    @ConfigEntry.Gui.TransitiveObject
+    public FallWarning fallWarning = new FallWarning();
     @ConfigEntry.Category("movementAssist")
     @ConfigEntry.Gui.TransitiveObject
     public MovementAssist movementAssist = new MovementAssist();
@@ -143,6 +146,19 @@ public final class Config implements ConfigData {
         public int volume = 60;
 
         private MiningRadar() {
+        }
+    }
+
+    public static final class FallWarning {
+        public boolean enabled = true;
+        @BoundedDiscrete(min = 1, max = 64)
+        public int threshold = 3;
+        @BoundedDiscrete(min = 0.2, max = 5.0)
+        public double lookaheadSeconds = 1.0;
+        @BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private FallWarning() {
         }
     }
 
