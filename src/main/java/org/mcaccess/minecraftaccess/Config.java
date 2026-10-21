@@ -46,6 +46,63 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("fallDetector")
     @ConfigEntry.Gui.TransitiveObject
     public FallDetector fallDetector = new FallDetector();
+    @ConfigEntry.Category("miningRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public MiningRadar miningRadar = new MiningRadar();
+    @ConfigEntry.Category("elytraAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ElytraAwareness elytraAwareness = new ElytraAwareness();
+    @ConfigEntry.Category("fallWarning")
+    @ConfigEntry.Gui.TransitiveObject
+    public FallWarning fallWarning = new FallWarning();
+    @ConfigEntry.Category("movementAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public MovementAssist movementAssist = new MovementAssist();
+    @ConfigEntry.Category("movementRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public MovementRadar movementRadar = new MovementRadar();
+    @ConfigEntry.Category("toolHarvestAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ToolHarvestAwareness toolHarvestAwareness = new ToolHarvestAwareness();
+    @ConfigEntry.Category("hostileRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public HostileRadar hostileRadar = new HostileRadar();
+    @ConfigEntry.Category("durabilityAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public DurabilityAwareness durabilityAwareness = new DurabilityAwareness();
+    @ConfigEntry.Category("debugOverlay")
+    @ConfigEntry.Gui.TransitiveObject
+    public DebugOverlay debugOverlay = new DebugOverlay();
+    @ConfigEntry.Category("eyeOfEnderAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public EyeOfEnderAwareness eyeOfEnderAwareness = new EyeOfEnderAwareness();
+    @ConfigEntry.Category("arrowHitAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ArrowHitAwareness arrowHitAwareness = new ArrowHitAwareness();
+    @ConfigEntry.Category("combatLock")
+    @ConfigEntry.Gui.TransitiveObject
+    public CombatLock combatLock = new CombatLock();
+    @ConfigEntry.Category("combatBeacon")
+    @ConfigEntry.Gui.TransitiveObject
+    public CombatBeacon combatBeacon = new CombatBeacon();
+    @ConfigEntry.Category("bowBeacon")
+    @ConfigEntry.Gui.TransitiveObject
+    public BowBeacon bowBeacon = new BowBeacon();
+    @ConfigEntry.Category("mountJumpCue")
+    @ConfigEntry.Gui.TransitiveObject
+    public MountJumpCue mountJumpCue = new MountJumpCue();
+    @ConfigEntry.Category("treeChoppingAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public TreeChoppingAssist treeChoppingAssist = new TreeChoppingAssist();
+    @ConfigEntry.Category("titleNarration")
+    @ConfigEntry.Gui.TransitiveObject
+    public TitleNarration titleNarration = new TitleNarration();
+    @ConfigEntry.Category("fishingCatch")
+    @ConfigEntry.Gui.TransitiveObject
+    public FishingCatch fishingCatch = new FishingCatch();
+    @ConfigEntry.Category("tameNotification")
+    @ConfigEntry.Gui.TransitiveObject
+    public TameNotification tameNotification = new TameNotification();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -105,6 +162,111 @@ public final class Config implements ConfigData {
         public int androidSpeechPitch = 50;
 
         private SpeechSettings() {
+        }
+    }
+
+    public static final class MiningRadar {
+        public boolean enabled = false;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
+        public int range = 6;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 60;
+
+        private MiningRadar() {
+        }
+    }
+
+    public static final class ElytraAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private ElytraAwareness() {
+        }
+    }
+
+    public static final class FallWarning {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+        public int threshold = 3;
+        public double lookaheadSeconds = 1.0;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private FallWarning() {
+        }
+    }
+
+    public static final class MovementAssist {
+        public boolean enabled = true;
+
+        private MovementAssist() {
+        }
+    }
+
+    public static final class MovementRadar {
+        public boolean enabled = false;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
+        public int range = 4;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private MovementRadar() {
+        }
+    }
+
+    public static final class ToolHarvestAwareness {
+        public boolean enabled = true;
+
+        private ToolHarvestAwareness() {
+        }
+    }
+
+    public static final class HostileRadar {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+        public int range = 16;
+        public boolean meleeRangeAlertEnabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 70;
+
+        private HostileRadar() {
+        }
+    }
+
+    public static final class DebugOverlay {
+        public boolean enabled = true;
+
+        private DebugOverlay() {
+        }
+    }
+
+    public static final class EyeOfEnderAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private EyeOfEnderAwareness() {
+        }
+    }
+
+    public static final class ArrowHitAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private ArrowHitAwareness() {
+        }
+    }
+
+    public static final class DurabilityAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int warningThreshold = 20;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int criticalThreshold = 5;
+
+        private DurabilityAwareness() {
         }
     }
 
@@ -239,6 +401,73 @@ public final class Config implements ConfigData {
         public int delay = 2500;
 
         private FallDetector() {
+        }
+    }
+
+    public static final class CombatLock {
+        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
+        @ConfigEntry.Gui.Tooltip
+        public int range = 32;
+
+        private CombatLock() {
+        }
+    }
+
+    public static final class CombatBeacon {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
+        @ConfigEntry.Gui.Tooltip
+        public int range = 32;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int volume = 100;
+
+        private CombatBeacon() {
+        }
+    }
+
+    public static final class BowBeacon {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int volume = 100;
+
+        private BowBeacon() {
+        }
+    }
+
+    public static final class MountJumpCue {
+        public boolean enabled = true;
+
+        private MountJumpCue() {
+        }
+    }
+
+    public static final class TreeChoppingAssist {
+        public boolean enabled = true;
+
+        private TreeChoppingAssist() {
+        }
+    }
+
+    public static final class TitleNarration {
+        public boolean enabled = true;
+
+        private TitleNarration() {
+        }
+    }
+
+    public static final class FishingCatch {
+        public boolean enabled = true;
+
+        private FishingCatch() {
+        }
+    }
+
+    public static final class TameNotification {
+        public boolean enabled = true;
+
+        private TameNotification() {
         }
     }
 

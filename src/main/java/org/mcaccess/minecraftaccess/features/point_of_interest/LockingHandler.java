@@ -213,8 +213,23 @@ public class LockingHandler implements BalmClientModule {
         }
     }
 
+    /**
+     * Releases the current lock, if any, saying so - for features that take the aim over and later hand it back.
+     */
+    public void releaseLock() {
+        if (isPlayerLocked()) unlock(true, true);
+    }
+
     public boolean isPlayerLocked() {
         return lockedOnBlockPos != null || lockedOnEntity != null;
+    }
+
+    /**
+     * The entity the player is locked on to, or {@code null} when nothing is locked on or the lock is on a block.
+     * For features that follow the aim rather than steer it, such as {@code CombatBeacon}.
+     */
+    public Entity getLockedEntity() {
+        return lockedOnEntity;
     }
 
     private void unlock(boolean narrate, boolean isStillValid) {
