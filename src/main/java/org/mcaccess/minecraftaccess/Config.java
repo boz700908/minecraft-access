@@ -549,6 +549,8 @@ public final class Config implements ConfigData {
         @ConfigEntry.Gui.CollapsibleObject
         public FlatAreaFinder flatAreaFinder = new FlatAreaFinder();
         @ConfigEntry.Gui.CollapsibleObject
+        public WaterExit waterExit = new WaterExit();
+        @ConfigEntry.Gui.CollapsibleObject
         public FluidDetector fluidDetector = new FluidDetector();
         @ConfigExtension.Registry(registry = AccessMenuFunction.class, i18n = "access_menu_function")
         public Identifier[] functions = new Identifier[]{
@@ -558,6 +560,7 @@ public final class Config implements ConfigData {
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_water"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_lava"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_flat_area"),
+                Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_water_exit"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "biome"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "time"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "xp"),
@@ -594,6 +597,20 @@ public final class Config implements ConfigData {
             public int maxResults = 3;
 
             private FlatAreaFinder() {
+            }
+        }
+
+        /**
+         * How far the search for a way out of the water may look. A cube rather than a sphere, since the flood only
+         * ever steps one block along an axis at a time; a larger radius reaches further across a lake, at the cost of
+         * more of the world being looked at before an answer comes back.
+         */
+        public static final class WaterExit {
+            @ConfigEntry.BoundedDiscrete(min = 4, max = 64)
+            @ConfigEntry.Gui.Tooltip
+            public int radius = 32;
+
+            private WaterExit() {
             }
         }
 

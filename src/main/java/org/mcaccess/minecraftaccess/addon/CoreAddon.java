@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mcaccess.minecraftaccess.Config;
 import org.mcaccess.minecraftaccess.addon.accessmenu.Biome;
 import org.mcaccess.minecraftaccess.addon.accessmenu.FindFlatArea;
+import org.mcaccess.minecraftaccess.addon.accessmenu.FindWaterExit;
 import org.mcaccess.minecraftaccess.addon.accessmenu.FluidDetector;
 import org.mcaccess.minecraftaccess.addon.accessmenu.LightLevel;
 import org.mcaccess.minecraftaccess.addon.accessmenu.NarrateTarget;
@@ -92,6 +93,7 @@ public class CoreAddon implements MinecraftAccessAddon {
         registry.register("find_water", new FluidDetector(FluidTags.WATER));
         registry.register("find_lava", new FluidDetector(FluidTags.LAVA));
         registry.register("find_flat_area", new FindFlatArea());
+        registry.register("find_water_exit", new FindWaterExit());
         registry.register("biome", new Biome());
         registry.register("time", new Time());
         registry.register("xp", new XP());
