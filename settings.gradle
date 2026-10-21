@@ -107,17 +107,6 @@ dependencyResolutionManagement {
             }
         }
 
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = 'Tolk'
-                    url = 'https://repo.granny.dev/releases/'
-                }
-            }
-            filter {
-                includeGroup 'com.davykager.tolk'
-            }
-        }
 
         exclusiveContent {
             forRepository {

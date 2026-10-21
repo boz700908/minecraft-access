@@ -3,38 +3,36 @@ package org.mcaccess.minecraftaccess.screen_reader;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 
 import org.mcaccess.minecraftaccess.MainClass;
 
+/**
+ * Gives the mod the screen reader it narrates with.
+ *
+ * <p>There is a single implementation, Prism, which speaks through whichever screen reader the machine runs and
+ * through the text to speech engine of the system when there is none. It brings the native library it needs along
+ * with the mod, so nothing has to be installed or downloaded beside it, on any platform.
+ */
 @Slf4j
 public final class ScreenReaderController {
     private ScreenReaderController() {
     }
 
+    /**
+     * Gets the screen reader of this session, starting it if it is not running yet.
+     *
+     * @return the screen reader, or {@code null} when Prism found no way to speak on this machine
+     */
     public static @Nullable ScreenReaderInterface getAvailable() {
-        switch (Util.getPlatform()) {
-            case WINDOWS -> {
-                ScreenReaderWindows screenReaderWindows = new ScreenReaderWindows();
-                screenReaderWindows.initializeScreenReader();
-                return screenReaderWindows;
-            }
-            case OSX -> {
-                ScreenReaderMacOS screenReaderMacOS = new ScreenReaderMacOS();
-                screenReaderMacOS.initializeScreenReader();
-                return screenReaderMacOS;
-            }
-            case LINUX -> {
-                ScreenReaderLinux screenReaderLinux = new ScreenReaderLinux();
-                screenReaderLinux.initializeScreenReader();
-                return screenReaderLinux;
-            }
-            default -> {
-                log.error("No valid ScreenReader interface found");
-                return null;
-            }
+        ScreenReaderPrism screenReader = new ScreenReaderPrism();
+        screenReader.initializeScreenReader();
+
+        if (!screenReader.isInitialized()) {
+            log.error("No valid ScreenReader interface found");
+            return null;
         }
+        return screenReader;
     }
 
     public static void refreshScreenReader() {
