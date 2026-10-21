@@ -46,6 +46,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("fallDetector")
     @ConfigEntry.Gui.TransitiveObject
     public FallDetector fallDetector = new FallDetector();
+    @ConfigEntry.Category("toolHarvestAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ToolHarvestAwareness toolHarvestAwareness = new ToolHarvestAwareness();
     @ConfigEntry.Category("hostileRadar")
     @ConfigEntry.Gui.TransitiveObject
     public HostileRadar hostileRadar = new HostileRadar();
@@ -111,6 +114,13 @@ public final class Config implements ConfigData {
         public int androidSpeechPitch = 50;
 
         private SpeechSettings() {
+        }
+    }
+
+    public static final class ToolHarvestAwareness {
+        public boolean enabled = true;
+
+        private ToolHarvestAwareness() {
         }
     }
 

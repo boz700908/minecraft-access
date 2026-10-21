@@ -36,6 +36,7 @@ import org.mcaccess.minecraftaccess.features.NarrateHeldItem;
 import org.mcaccess.minecraftaccess.features.PlayerStatus;
 import org.mcaccess.minecraftaccess.features.PositionNarrator;
 import org.mcaccess.minecraftaccess.features.TimeIndicator;
+import org.mcaccess.minecraftaccess.features.ToolHarvestAwareness;
 import org.mcaccess.minecraftaccess.features.XPIndicator;
 import org.mcaccess.minecraftaccess.features.inventory_controls.InventoryControls;
 import org.mcaccess.minecraftaccess.features.point_of_interest.POIManager;
@@ -133,6 +134,7 @@ public final class MainClass {
         registrars.registerModule(new CameraControls());
         registrars.registerModule(new DurabilityAwareness());
         registrars.registerModule(new HostileRadar());
+        registrars.registerModule(new ToolHarvestAwareness());
         registrars.registerModule(new FallDetector());
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());
