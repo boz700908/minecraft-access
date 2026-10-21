@@ -73,7 +73,7 @@ public class FishingCatchNarrator implements BalmClientModule {
         AABB box = player.getBoundingBox().inflate(CATCH_RADIUS);
         ItemEntity nearest = null;
         double nearestDistanceSqr = Double.MAX_VALUE;
-        for (Entity entity : player.level().getEntities(null, box,
+        for (Entity entity : player.level().getEntities((Entity) null, box,
                 candidate -> candidate instanceof ItemEntity item && item.tickCount <= MAX_CATCH_AGE_TICKS)) {
             double distanceSqr = entity.distanceToSqr(player);
             if (distanceSqr < nearestDistanceSqr) {
