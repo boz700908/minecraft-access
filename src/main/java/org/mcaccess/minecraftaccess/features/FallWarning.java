@@ -18,9 +18,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HayBlock;
-import net.minecraft.world.level.block.ShelfMushroomBlock;
+import net.minecraft.world.level.block.HoneyBlock;
 import net.minecraft.world.level.block.SlimeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -231,13 +232,12 @@ public class FallWarning implements BalmClientModule {
         if (landingState.getFluidState().is(FluidTags.WATER)) return false;
 
         Block block = landingState.getBlock();
-        // A bouncing block redirects the entity instead of letting it land, so it never takes fall damage;
-        // there is no shared marker for that the way beds share a drop reduction.
-        if (block instanceof SlimeBlock || block instanceof ShelfMushroomBlock) return false;
+        // A bouncing or cushioned block redirects the entity instead of letting it land, so it never takes
+        // fall damage; there is no shared marker for that the way beds share a drop reduction.
+        if (block instanceof SlimeBlock || block instanceof HoneyBlock) return false;
 
-        // The same fraction the landing itself reduces the drop by, which covers every bed variant without
-        // naming their types.
-        double effectiveDrop = dropHeight * (1.0 - block.getFallDistanceReduction());
+        // Beds halve the drop and hay bales cut the damage to a fifth, matching what landing on each does.
+        double effectiveDrop = block instanceof BedBlock ? dropHeight * 0.5 : dropHeight;
         double damageModifier = block instanceof HayBlock ? 0.2 : 1.0;
 
         double fallPower = effectiveDrop + FALL_POWER_EPSILON - player.getAttributeValue(Attributes.SAFE_FALL_DISTANCE);
