@@ -49,6 +49,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("miningRadar")
     @ConfigEntry.Gui.TransitiveObject
     public MiningRadar miningRadar = new MiningRadar();
+    @ConfigEntry.Category("elytraAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ElytraAwareness elytraAwareness = new ElytraAwareness();
     @ConfigEntry.Category("fallWarning")
     @ConfigEntry.Gui.TransitiveObject
     public FallWarning fallWarning = new FallWarning();
@@ -146,6 +149,15 @@ public final class Config implements ConfigData {
         public int volume = 60;
 
         private MiningRadar() {
+        }
+    }
+
+    public static final class ElytraAwareness {
+        public boolean enabled = true;
+        @BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private ElytraAwareness() {
         }
     }
 

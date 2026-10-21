@@ -28,6 +28,7 @@ import org.mcaccess.minecraftaccess.features.BiomeIndicator;
 import org.mcaccess.minecraftaccess.features.CameraControls;
 import org.mcaccess.minecraftaccess.features.DebugOverlayNavigator;
 import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
+import org.mcaccess.minecraftaccess.features.ElytraAwareness;
 import org.mcaccess.minecraftaccess.features.EyeOfEnderAwareness;
 import org.mcaccess.minecraftaccess.features.FallDetector;
 import org.mcaccess.minecraftaccess.features.FallWarning;
@@ -144,6 +145,7 @@ public final class MainClass {
         registrars.registerModule(new DurabilityAwareness());
         registrars.registerModule(new HostileRadar());
         registrars.registerModule(new ToolHarvestAwareness());
+        registrars.registerModule(new ElytraAwareness());
         registrars.registerModule(new EyeOfEnderAwareness());
         registrars.registerModule(new FallDetector());
         registrars.registerModule(new FallWarning());
