@@ -64,11 +64,9 @@ class FlatAreaFinderTest {
 
     @Test
     void acceptsEitherOrientation() {
-        Map<Integer, boolean[]> floors = new HashMap<>();
-        floors.put(30, grid(0, 0, 6, 2));
-
-        assertEquals(1, FlatAreaFinder.find(floors, SIZE, SIZE, 2, 6, 1).size());
-        assertEquals(1, FlatAreaFinder.find(floors, SIZE, SIZE, 6, 2, 1).size());
+        // A fresh grid per call: find() clears the cells it reports, so one grid cannot answer two searches.
+        assertEquals(1, FlatAreaFinder.find(single(30, grid(0, 0, 6, 2)), SIZE, SIZE, 2, 6, 1).size());
+        assertEquals(1, FlatAreaFinder.find(single(30, grid(0, 0, 6, 2)), SIZE, SIZE, 6, 2, 1).size());
     }
 
     @Test
@@ -97,12 +95,8 @@ class FlatAreaFinderTest {
 
     @Test
     void respectsTheResultLimit() {
-        Map<Integer, boolean[]> one = new HashMap<>();
-        one.put(64, grid(0, 0, SIZE, 1));
-        one.put(70, grid(0, 4, SIZE, 1));
-
-        assertEquals(1, FlatAreaFinder.find(one, SIZE, SIZE, 1, 1, 1).size());
-        assertEquals(2, FlatAreaFinder.find(one, SIZE, SIZE, 1, 1, 5).size());
+        assertEquals(1, FlatAreaFinder.find(twoShelves(), SIZE, SIZE, 1, 1, 1).size());
+        assertEquals(2, FlatAreaFinder.find(twoShelves(), SIZE, SIZE, 1, 1, 5).size());
     }
 
     @Test
@@ -132,6 +126,19 @@ class FlatAreaFinderTest {
             assertEquals(2, area.width());
             assertEquals(2, area.depth());
         }
+    }
+
+    private static Map<Integer, boolean[]> single(int y, boolean[] open) {
+        Map<Integer, boolean[]> floors = new HashMap<>();
+        floors.put(y, open);
+        return floors;
+    }
+
+    private static Map<Integer, boolean[]> twoShelves() {
+        Map<Integer, boolean[]> floors = new HashMap<>();
+        floors.put(64, grid(0, 0, SIZE, 1));
+        floors.put(70, grid(0, 4, SIZE, 1));
+        return floors;
     }
 
     private static boolean[] grid(int x, int z, int width, int depth) {
