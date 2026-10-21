@@ -30,6 +30,7 @@ import org.mcaccess.minecraftaccess.features.FallDetector;
 import org.mcaccess.minecraftaccess.features.HUDStatus;
 import org.mcaccess.minecraftaccess.features.HostileRadar;
 import org.mcaccess.minecraftaccess.features.MenuFix;
+import org.mcaccess.minecraftaccess.features.MiningRadar;
 import org.mcaccess.minecraftaccess.features.MouseSimulation;
 import org.mcaccess.minecraftaccess.features.NarrateCrosshair;
 import org.mcaccess.minecraftaccess.features.NarrateHeldItem;
@@ -139,6 +140,7 @@ public final class MainClass {
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());
         registrars.registerModule(new MenuFix());
+        registrars.registerModule(new MiningRadar());
         registrars.registerModule(new MouseSimulation());
         registrars.registerModule(new NarrateCrosshair());
         registrars.registerModule(new NarrateHeldItem());

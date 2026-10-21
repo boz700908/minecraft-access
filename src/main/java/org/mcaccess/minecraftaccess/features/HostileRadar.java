@@ -15,7 +15,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import org.mcaccess.minecraftaccess.Config;
 import org.mcaccess.minecraftaccess.MainClass;
+import org.mcaccess.minecraftaccess.utils.NarrationUtils;
 import org.mcaccess.minecraftaccess.utils.events.ClientPlayingTick;
 
 /**
@@ -48,22 +48,9 @@ public class HostileRadar implements BalmClientModule {
     private static final int ALERT_INTERVAL_TICKS = 5;
     private static final int RE_ALERT_COOLDOWN_TICKS = 100;
     private static final int MELEE_ALERT_INTERVAL_TICKS = 10;
-    private static final int SECTORS = 8;
-    private static final double SECTOR_DEGREES = 360.0 / SECTORS;
     private static final float ALERT_VOLUME = 0.7f;
     private static final float MELEE_VOLUME = 0.6f;
     private static final float MELEE_PITCH = 1.4f;
-    private static final String[] DIRECTION_KEYS = {
-            "minecraft_access.hostile_radar.direction.ahead",
-            "minecraft_access.hostile_radar.direction.ahead_right",
-            "minecraft_access.hostile_radar.direction.right",
-            "minecraft_access.hostile_radar.direction.behind_right",
-            "minecraft_access.hostile_radar.direction.behind",
-            "minecraft_access.hostile_radar.direction.behind_left",
-            "minecraft_access.hostile_radar.direction.left",
-            "minecraft_access.hostile_radar.direction.ahead_left",
-    };
-
     /** Per session, so the cooldowns of a previous world say nothing about the one being played now. */
     private final SessionLocal<State> state = new SessionLocal<>(State::new);
 
@@ -152,7 +139,7 @@ public class HostileRadar implements BalmClientModule {
                 config.volume / 100.0f * ALERT_VOLUME, 1.0f, random, pos.x(), pos.y(), pos.z()));
 
         int distance = (int) Math.round(player.getEyePosition().distanceTo(entity.position()));
-        String direction = I18n.get(DIRECTION_KEYS[sectorTo(player, pos)]);
+        String direction = NarrationUtils.narrateRelativeDirection(pos);
         MainClass.narrate(I18n.get("minecraft_access.hostile_radar.alert",
                 entity.getDisplayName().getString(), distance, direction), true);
     }
@@ -165,15 +152,6 @@ public class HostileRadar implements BalmClientModule {
                 Config.getInstance().hostileRadar.volume / 100.0f * MELEE_VOLUME, MELEE_PITCH, random,
                 pos.x(), pos.y(), pos.z()));
         state.ticksUntilMeleeAlert = MELEE_ALERT_INTERVAL_TICKS;
-    }
-
-    /**
-     * The eighth of the compass around the player that {@code pos} falls in, 0 being straight ahead.
-     */
-    private static int sectorTo(LocalPlayer player, Vec3 pos) {
-        double bearing = Math.toDegrees(Math.atan2(pos.x - player.getX(), pos.z - player.getZ()));
-        double relative = Mth.wrapDegrees(bearing - player.getYRot());
-        return Mth.floor((relative + SECTOR_DEGREES / 2) / SECTOR_DEGREES) & (SECTORS - 1);
     }
 
     private static boolean hasLineOfSight(Level level, Vec3 from, Vec3 to) {

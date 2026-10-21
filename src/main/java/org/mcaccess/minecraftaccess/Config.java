@@ -46,6 +46,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("fallDetector")
     @ConfigEntry.Gui.TransitiveObject
     public FallDetector fallDetector = new FallDetector();
+    @ConfigEntry.Category("miningRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public MiningRadar miningRadar = new MiningRadar();
     @ConfigEntry.Category("toolHarvestAwareness")
     @ConfigEntry.Gui.TransitiveObject
     public ToolHarvestAwareness toolHarvestAwareness = new ToolHarvestAwareness();
@@ -114,6 +117,17 @@ public final class Config implements ConfigData {
         public int androidSpeechPitch = 50;
 
         private SpeechSettings() {
+        }
+    }
+
+    public static final class MiningRadar {
+        public boolean enabled = false;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
+        public int range = 6;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 60;
+
+        private MiningRadar() {
         }
     }
 

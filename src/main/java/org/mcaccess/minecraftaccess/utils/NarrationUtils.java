@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -23,6 +24,17 @@ import org.jetbrains.annotations.NotNull;
 @Slf4j
 public final class NarrationUtils {
     private static final Minecraft CLIENT = Minecraft.getInstance();
+    private static final int DIRECTION_SECTORS = 8;
+    private static final String[] DIRECTION_KEYS = {
+            "minecraft_access.util.direction.ahead",
+            "minecraft_access.util.direction.ahead_right",
+            "minecraft_access.util.direction.right",
+            "minecraft_access.util.direction.behind_right",
+            "minecraft_access.util.direction.behind",
+            "minecraft_access.util.direction.behind_left",
+            "minecraft_access.util.direction.left",
+            "minecraft_access.util.direction.ahead_left",
+    };
 
     private NarrationUtils() {
     }
@@ -83,6 +95,20 @@ public final class NarrationUtils {
             text = String.format("%s  %s  %s", diffXBlockPos, diffYBlockPos, diffZBlockPos);
         }
         return text;
+    }
+
+    /**
+     * Where {@code target} lies on the compass around the player, in words: straight ahead, ahead right, and so
+     * on round to ahead left, in eighths.
+     */
+    public static String narrateRelativeDirection(Vec3 target) {
+        if (CLIENT.player == null) return "";
+
+        double bearing = Math.toDegrees(Math.atan2(target.x - CLIENT.player.getX(), target.z - CLIENT.player.getZ()));
+        double relative = Mth.wrapDegrees(bearing - CLIENT.player.getYRot());
+        double sectorDegrees = 360.0 / DIRECTION_SECTORS;
+        int sector = Mth.floor((relative + sectorDegrees / 2) / sectorDegrees) & (DIRECTION_SECTORS - 1);
+        return I18n.get(DIRECTION_KEYS[sector]);
     }
 
     public static String getDifferenceString(int blocks, String key1, String key2) {
