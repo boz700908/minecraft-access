@@ -21,6 +21,7 @@ import net.minecraft.client.gui.components.debug.DebugScreenEntry;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
@@ -210,7 +211,7 @@ public class DebugOverlayNavigator implements BalmClientModule {
 
     private static String sectionName(Identifier id) {
         String key = SECTION_NAME_PREFIX + id.getPath();
-        if ("minecraft".equals(id.getNamespace()) && I18n.exists(key)) return I18n.get(key);
+        if ("minecraft".equals(id.getNamespace()) && Language.getInstance().has(key)) return I18n.get(key);
         // Other mods' entries have no name we ship, so the id's path is read as it stands.
         return id.getPath().replace('_', ' ').replace('/', ' ');
     }

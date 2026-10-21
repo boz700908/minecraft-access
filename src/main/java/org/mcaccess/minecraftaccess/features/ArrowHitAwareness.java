@@ -77,7 +77,7 @@ public class ArrowHitAwareness implements BalmClientModule {
         for (Entity entity : level.getEntities(player, box,
                 candidate -> candidate instanceof AbstractArrow arrow && arrow.getOwner() == player)) {
             state.watched.computeIfAbsent(entity.getId(),
-                    id -> new Tracked(entity instanceof ThrownTrident, entity.position()));
+                    id -> new Tracked(entity.getId(), entity instanceof ThrownTrident, entity.position()));
         }
 
         watch(state, level);

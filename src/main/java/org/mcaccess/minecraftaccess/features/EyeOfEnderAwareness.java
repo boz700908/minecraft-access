@@ -71,7 +71,7 @@ public class EyeOfEnderAwareness implements BalmClientModule {
         AABB near = player.getBoundingBox().inflate(THROW_DISCOVERY_RANGE);
         for (Entity entity : level.getEntities(player, near,
                 candidate -> candidate instanceof EyeOfEnder && candidate.tickCount <= NEW_EYE_MAX_AGE)) {
-            state.watched.computeIfAbsent(entity.getId(), id -> new Tracked(entity.position()));
+            state.watched.computeIfAbsent(entity.getId(), id -> new Tracked(entity.getId(), entity.position()));
         }
 
         follow(client, player, level, state, config);
