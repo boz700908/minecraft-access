@@ -50,6 +50,14 @@ public final class PrismNarrator implements AutoCloseable {
      */
     private static final String PLATFORM_PROPERTY = "minecraftaccess.prism.platform";
     /**
+     * Names a Prism library already on disk to load instead of the one in the resources of the mod.
+     *
+     * <p>iOS is the reason this exists: the system only loads code that was signed as part of the application, so
+     * a library written out next to the game directory at runtime is refused. A launcher that ships the library
+     * inside its own bundle can point this property at it.
+     */
+    private static final String LIBRARY_PROPERTY = "minecraftaccess.prism.library";
+    /**
      * The value of {@code PRISM_OK}.
      */
     private static final int OK = 0;
@@ -83,8 +91,18 @@ public final class PrismNarrator implements AutoCloseable {
      */
     @SuppressWarnings("checkstyle:IllegalCatch")
     public static PrismNarrator create(Path baseDirectory) {
-        NativeLibrary library = NativeLibrary.detect();
-        if (library == null) {
+        Path named = libraryFile();
+        if (named != null) {
+            try {
+                return load(List.of(named));
+            } catch (IOException | RuntimeException | LinkageError e) {
+                log.error("Unable to start Prism from {}, the screen reader of the platform is used instead", named, e);
+                return null;
+            }
+        }
+
+        List<NativeLibrary> candidates = NativeLibrary.candidates();
+        if (candidates.isEmpty()) {
             log.info(
                     "Prism has no native library for {} on {}, the screen reader of the platform is used instead",
                     System.getProperty("os.name"),
@@ -93,16 +111,35 @@ public final class PrismNarrator implements AutoCloseable {
             return null;
         }
 
-        try {
-            return load(baseDirectory, library);
-        } catch (IOException | RuntimeException | LinkageError e) {
-            log.error("Unable to start Prism, the screen reader of the platform is used instead", e);
-            return null;
+        for (NativeLibrary library : candidates) {
+            try {
+                return load(extract(baseDirectory, library));
+            } catch (IOException | RuntimeException | LinkageError e) {
+                log.warn("Unable to start the Prism library for {}", library.directory(), e);
+            }
         }
+
+        log.error("Unable to start Prism, the screen reader of the platform is used instead");
+        return null;
     }
 
-    private static PrismNarrator load(Path baseDirectory, NativeLibrary library) throws IOException {
-        List<Path> files = extract(baseDirectory, library);
+    /**
+     * The library named by {@link #LIBRARY_PROPERTY}, when it is set and readable.
+     *
+     * @return the library to load, or {@code null} to use the one in the resources of the mod
+     */
+    private static Path libraryFile() {
+        String path = System.getProperty(LIBRARY_PROPERTY);
+        if (path == null || path.isBlank()) return null;
+
+        Path file = Path.of(path);
+        if (Files.isReadable(file)) return file;
+
+        log.warn("{} does not name a readable file, using the library in the resources of the mod instead", path);
+        return null;
+    }
+
+    private static PrismNarrator load(List<Path> files) throws IOException {
         for (Path file : files) {
             System.load(file.toAbsolutePath().toString());
         }
@@ -354,6 +391,25 @@ public final class PrismNarrator implements AutoCloseable {
                 return of(arm ? "linux-aarch64" : "linux-x86_64");
             }
             return null;
+        }
+
+        /**
+         * The platforms to try, best guess first. A JVM running on an iOS device often describes itself as
+         * Darwin, which would pick the macOS library: the two use the same file name but not the same system
+         * frameworks, so the other one is tried when the first does not load.
+         *
+         * @return the libraries to try in order, empty when this platform is not supported at all
+         */
+        private static List<NativeLibrary> candidates() {
+            NativeLibrary detected = detect();
+            if (detected == null) return List.of();
+
+            String alternative = switch (detected.directory()) {
+                case "macos-universal" -> "ios-arm64";
+                case "ios-arm64" -> "macos-universal";
+                default -> null;
+            };
+            return alternative == null ? List.of(detected) : List.of(detected, of(alternative));
         }
 
         private static NativeLibrary of(String directory) {
