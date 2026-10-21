@@ -94,6 +94,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("treeChoppingAssist")
     @ConfigEntry.Gui.TransitiveObject
     public TreeChoppingAssist treeChoppingAssist = new TreeChoppingAssist();
+    @ConfigEntry.Category("titleNarration")
+    @ConfigEntry.Gui.TransitiveObject
+    public TitleNarration titleNarration = new TitleNarration();
     @ConfigEntry.Category("fishingCatch")
     @ConfigEntry.Gui.TransitiveObject
     public FishingCatch fishingCatch = new FishingCatch();
@@ -444,6 +447,13 @@ public final class Config implements ConfigData {
         public boolean enabled = true;
 
         private TreeChoppingAssist() {
+        }
+    }
+
+    public static final class TitleNarration {
+        public boolean enabled = true;
+
+        private TitleNarration() {
         }
     }
 

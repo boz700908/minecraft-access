@@ -52,6 +52,7 @@ import org.mcaccess.minecraftaccess.features.PositionNarrator;
 import org.mcaccess.minecraftaccess.features.ShoulderParrot;
 import org.mcaccess.minecraftaccess.features.TameNotifier;
 import org.mcaccess.minecraftaccess.features.TimeIndicator;
+import org.mcaccess.minecraftaccess.features.TitleReader;
 import org.mcaccess.minecraftaccess.features.ToolHarvestAwareness;
 import org.mcaccess.minecraftaccess.features.TreeChoppingAssist;
 import org.mcaccess.minecraftaccess.features.XPIndicator;
@@ -159,6 +160,7 @@ public final class MainClass {
         registrars.registerModule(new HostileRadar());
         registrars.registerModule(new TameNotifier());
         registrars.registerModule(new TreeChoppingAssist());
+        registrars.registerModule(new TitleReader());
         registrars.registerModule(new ToolHarvestAwareness());
         registrars.registerModule(new ElytraAwareness());
         registrars.registerModule(new EyeOfEnderAwareness());
