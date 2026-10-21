@@ -85,6 +85,9 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("combatBeacon")
     @ConfigEntry.Gui.TransitiveObject
     public CombatBeacon combatBeacon = new CombatBeacon();
+    @ConfigEntry.Category("bowBeacon")
+    @ConfigEntry.Gui.TransitiveObject
+    public BowBeacon bowBeacon = new BowBeacon();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -405,6 +408,16 @@ public final class Config implements ConfigData {
         public int volume = 100;
 
         private CombatBeacon() {
+        }
+    }
+
+    public static final class BowBeacon {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int volume = 100;
+
+        private BowBeacon() {
         }
     }
 
