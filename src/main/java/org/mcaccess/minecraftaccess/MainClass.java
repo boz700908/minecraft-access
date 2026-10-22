@@ -223,8 +223,17 @@ public final class MainClass {
     public static void narrate(String text, boolean interrupt) {
         Minecraft client = Minecraft.getInstance();
 
-        if (Strings.isEmpty(text) || !client.isWindowActive()) {
-            log.warn("The narration of string \"{}\" with interrupt={} was suppressed", text, interrupt);
+        if (Strings.isEmpty(text)) {
+            // Features that narrate only the changed part of a text routinely end up
+            // with nothing to say, so this is expected rather than a problem.
+            log.debug("Skipped narrating an empty string with interrupt={}", interrupt);
+            return;
+        }
+
+        if (!client.isWindowActive()) {
+            // The player has switched away from the game; saying anything now would
+            // talk over whatever they switched to.
+            log.debug("Skipped narrating while the window is inactive: {}", text);
             return;
         }
 
