@@ -3,7 +3,10 @@
         "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
-    <suppress files="\.(?:png|mp3|ogg|jar|gz)$" checks=".*"/>
+    <suppress files="\.(?:png|mp3|ogg|jar|gz|so|dex|dll|dylib)$" checks=".*"/>
+    <!-- android/art is compiled by android/build.sh into the dex that reaches the Android runtime, it is not part of
+         the Gradle build and cannot follow the src/main/java rules. -->
+    <suppress files="/android/art/" checks=".*"/>
     <suppress files="/\.git/" checks=".*"/>
     <suppress files="/\.gradle/" checks=".*"/>
     <suppress files="/\.direnv/" checks=".*"/>

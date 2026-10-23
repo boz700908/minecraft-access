@@ -13,6 +13,15 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ github.ref }}
+  build-26-2:
+    name: Build (26.2)
+    # The 26.2 branch keeps its own copy of the mod; every other branch gets both versions built,
+    # while a push to that branch is already the 26.2 build itself.
+    if: github.event_name == 'push' && github.ref != 'refs/heads/feature/mc-26.2'
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: feature/mc-26.2
+      artifactName: minecraft-access-26.2
   test:
     name: Test
     runs-on: ubuntu-latest

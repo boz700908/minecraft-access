@@ -23,18 +23,40 @@ import org.jetbrains.annotations.UnmodifiableView;
 import org.mcaccess.minecraftaccess.api.AddonRegistry;
 import org.mcaccess.minecraftaccess.api.MinecraftAccessAddon;
 import org.mcaccess.minecraftaccess.features.AccessMenu;
-import org.mcaccess.minecraftaccess.features.AutoLibrarySetup;
+import org.mcaccess.minecraftaccess.features.AngleAssist;
+import org.mcaccess.minecraftaccess.features.AnimalFeedingCue;
+import org.mcaccess.minecraftaccess.features.ArrowHitAwareness;
 import org.mcaccess.minecraftaccess.features.BiomeIndicator;
+import org.mcaccess.minecraftaccess.features.BowBeacon;
 import org.mcaccess.minecraftaccess.features.CameraControls;
+import org.mcaccess.minecraftaccess.features.CombatBeacon;
+import org.mcaccess.minecraftaccess.features.CombatLock;
+import org.mcaccess.minecraftaccess.features.DebugOverlayNavigator;
+import org.mcaccess.minecraftaccess.features.DurabilityAwareness;
+import org.mcaccess.minecraftaccess.features.ElytraAwareness;
+import org.mcaccess.minecraftaccess.features.EyeOfEnderAwareness;
 import org.mcaccess.minecraftaccess.features.FallDetector;
+import org.mcaccess.minecraftaccess.features.FallWarning;
+import org.mcaccess.minecraftaccess.features.FishingCatchNarrator;
 import org.mcaccess.minecraftaccess.features.HUDStatus;
+import org.mcaccess.minecraftaccess.features.HostileRadar;
 import org.mcaccess.minecraftaccess.features.MenuFix;
+import org.mcaccess.minecraftaccess.features.MiningRadar;
+import org.mcaccess.minecraftaccess.features.MountJumpCue;
 import org.mcaccess.minecraftaccess.features.MouseSimulation;
+import org.mcaccess.minecraftaccess.features.MovementAssist;
+import org.mcaccess.minecraftaccess.features.MovementRadar;
 import org.mcaccess.minecraftaccess.features.NarrateCrosshair;
 import org.mcaccess.minecraftaccess.features.NarrateHeldItem;
+import org.mcaccess.minecraftaccess.features.OreMiningAssist;
 import org.mcaccess.minecraftaccess.features.PlayerStatus;
 import org.mcaccess.minecraftaccess.features.PositionNarrator;
+import org.mcaccess.minecraftaccess.features.ShoulderParrot;
+import org.mcaccess.minecraftaccess.features.TameNotifier;
 import org.mcaccess.minecraftaccess.features.TimeIndicator;
+import org.mcaccess.minecraftaccess.features.TitleReader;
+import org.mcaccess.minecraftaccess.features.ToolHarvestAwareness;
+import org.mcaccess.minecraftaccess.features.TreeChoppingAssist;
 import org.mcaccess.minecraftaccess.features.XPIndicator;
 import org.mcaccess.minecraftaccess.features.inventory_controls.InventoryControls;
 import org.mcaccess.minecraftaccess.features.point_of_interest.POIManager;
@@ -82,8 +104,6 @@ public final class MainClass {
         String startupMessage = "Initializing Minecraft Access: version " + Balm.platform().getModInfo(MOD_ID).get().versionString();
         log.info(startupMessage);
 
-        new AutoLibrarySetup().initialize();
-
         ClientPlayingTick.AFTER.configureMapping((priority, callback) -> {
             ClientTickCallback.AFTER.register(priority, client -> {
                 if (client.player != null && client.level != null) {
@@ -130,15 +150,37 @@ public final class MainClass {
         }
 
         registrars.registerModule(new AccessMenu());
+        registrars.registerModule(new AngleAssist());
+        registrars.registerModule(new AnimalFeedingCue());
+        registrars.registerModule(new ArrowHitAwareness());
         registrars.registerModule(new BiomeIndicator());
         registrars.registerModule(new CameraControls());
+        registrars.registerModule(new CombatBeacon());
+        registrars.registerModule(new BowBeacon());
+        registrars.registerModule(new CombatLock());
+        registrars.registerModule(new DebugOverlayNavigator());
+        registrars.registerModule(new DurabilityAwareness());
+        registrars.registerModule(new HostileRadar());
+        registrars.registerModule(new TameNotifier());
+        registrars.registerModule(new TreeChoppingAssist());
+        registrars.registerModule(new TitleReader());
+        registrars.registerModule(new ToolHarvestAwareness());
+        registrars.registerModule(new ElytraAwareness());
+        registrars.registerModule(new EyeOfEnderAwareness());
         registrars.registerModule(new FallDetector());
+        registrars.registerModule(new FallWarning());
+        registrars.registerModule(new FishingCatchNarrator());
+        registrars.registerModule(new MountJumpCue());
         registrars.registerModule(new HUDStatus());
         registrars.registerModule(new InventoryControls());
         registrars.registerModule(new MenuFix());
+        registrars.registerModule(new MiningRadar());
+        registrars.registerModule(new MovementAssist());
+        registrars.registerModule(new MovementRadar());
         registrars.registerModule(new MouseSimulation());
         registrars.registerModule(new NarrateCrosshair());
         registrars.registerModule(new NarrateHeldItem());
+        registrars.registerModule(new OreMiningAssist());
         registrars.registerModule(new PlayerStatus());
         poiManager = new POIManager();
         registrars.registerModule(poiManager.lockingHandler);
@@ -147,6 +189,7 @@ public final class MainClass {
         registrars.registerModule(poiManager.poiEntities);
         registrars.registerModule(poiManager.poiMarking);
         registrars.registerModule(new PositionNarrator());
+        registrars.registerModule(new ShoulderParrot());
         registrars.registerModule(new TimeIndicator());
         registrars.registerModule(new XPIndicator());
     }
@@ -180,8 +223,17 @@ public final class MainClass {
     public static void narrate(String text, boolean interrupt) {
         Minecraft client = Minecraft.getInstance();
 
-        if (Strings.isEmpty(text) || !client.isWindowActive()) {
-            log.warn("The narration of string \"{}\" with interrupt={} was suppressed", text, interrupt);
+        if (Strings.isEmpty(text)) {
+            // Features that narrate only the changed part of a text routinely end up
+            // with nothing to say, so this is expected rather than a problem.
+            log.debug("Skipped narrating an empty string with interrupt={}", interrupt);
+            return;
+        }
+
+        if (!client.isWindowActive()) {
+            // The player has switched away from the game; saying anything now would
+            // talk over whatever they switched to.
+            log.debug("Skipped narrating while the window is inactive: {}", text);
             return;
         }
 

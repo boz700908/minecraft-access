@@ -26,6 +26,7 @@
         "ClientPacketListenerMixin",
         "ClientTextTooltipAccessor",
         "CreativeModeInventoryScreenAccessor",
+        "DebugScreenOverlayAccessorMixin",
         "EditBoxAccessor",
         "EditBoxMixin",
         "EntityAccessor",
@@ -36,6 +37,7 @@
         "GameNarratorMixin",
         "GuiGraphicsExtractorMixin",
         "HudMixin",
+        "HudTitleAccessor",
         "I18nMixin",
         "InputMixin",
         "ItemStackMixin",
@@ -62,7 +64,6 @@
         "TamableAnimalMixin",
         "TextFieldHelperMixin",
         "ToastManagerMixin",
-        "TolkMixin",
         "TutorialToastAccessor",
         "WinScreenMixin",
         "WolfAccessor"

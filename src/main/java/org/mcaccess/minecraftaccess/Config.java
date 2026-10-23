@@ -46,6 +46,69 @@ public final class Config implements ConfigData {
     @ConfigEntry.Category("fallDetector")
     @ConfigEntry.Gui.TransitiveObject
     public FallDetector fallDetector = new FallDetector();
+    @ConfigEntry.Category("miningRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public MiningRadar miningRadar = new MiningRadar();
+    @ConfigEntry.Category("elytraAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ElytraAwareness elytraAwareness = new ElytraAwareness();
+    @ConfigEntry.Category("fallWarning")
+    @ConfigEntry.Gui.TransitiveObject
+    public FallWarning fallWarning = new FallWarning();
+    @ConfigEntry.Category("movementAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public MovementAssist movementAssist = new MovementAssist();
+    @ConfigEntry.Category("movementRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public MovementRadar movementRadar = new MovementRadar();
+    @ConfigEntry.Category("toolHarvestAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ToolHarvestAwareness toolHarvestAwareness = new ToolHarvestAwareness();
+    @ConfigEntry.Category("hostileRadar")
+    @ConfigEntry.Gui.TransitiveObject
+    public HostileRadar hostileRadar = new HostileRadar();
+    @ConfigEntry.Category("durabilityAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public DurabilityAwareness durabilityAwareness = new DurabilityAwareness();
+    @ConfigEntry.Category("debugOverlay")
+    @ConfigEntry.Gui.TransitiveObject
+    public DebugOverlay debugOverlay = new DebugOverlay();
+    @ConfigEntry.Category("eyeOfEnderAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public EyeOfEnderAwareness eyeOfEnderAwareness = new EyeOfEnderAwareness();
+    @ConfigEntry.Category("arrowHitAwareness")
+    @ConfigEntry.Gui.TransitiveObject
+    public ArrowHitAwareness arrowHitAwareness = new ArrowHitAwareness();
+    @ConfigEntry.Category("combatLock")
+    @ConfigEntry.Gui.TransitiveObject
+    public CombatLock combatLock = new CombatLock();
+    @ConfigEntry.Category("combatBeacon")
+    @ConfigEntry.Gui.TransitiveObject
+    public CombatBeacon combatBeacon = new CombatBeacon();
+    @ConfigEntry.Category("bowBeacon")
+    @ConfigEntry.Gui.TransitiveObject
+    public BowBeacon bowBeacon = new BowBeacon();
+    @ConfigEntry.Category("mountJumpCue")
+    @ConfigEntry.Gui.TransitiveObject
+    public MountJumpCue mountJumpCue = new MountJumpCue();
+    @ConfigEntry.Category("treeChoppingAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public TreeChoppingAssist treeChoppingAssist = new TreeChoppingAssist();
+    @ConfigEntry.Category("oreMiningAssist")
+    @ConfigEntry.Gui.TransitiveObject
+    public OreMiningAssist oreMiningAssist = new OreMiningAssist();
+    @ConfigEntry.Category("animalFeedingCue")
+    @ConfigEntry.Gui.TransitiveObject
+    public AnimalFeedingCue animalFeedingCue = new AnimalFeedingCue();
+    @ConfigEntry.Category("titleNarration")
+    @ConfigEntry.Gui.TransitiveObject
+    public TitleNarration titleNarration = new TitleNarration();
+    @ConfigEntry.Category("fishingCatch")
+    @ConfigEntry.Gui.TransitiveObject
+    public FishingCatch fishingCatch = new FishingCatch();
+    @ConfigEntry.Category("tameNotification")
+    @ConfigEntry.Gui.TransitiveObject
+    public TameNotification tameNotification = new TameNotification();
     @ConfigEntry.Category("narrateCrosshair")
     @ConfigEntry.Gui.TransitiveObject
     public NarrateCrosshair narrateCrosshair = new NarrateCrosshair();
@@ -97,8 +160,119 @@ public final class Config implements ConfigData {
     public static final class SpeechSettings {
         public float speechRate = 50;
         public boolean narrateHints = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int androidSpeechRate = 50;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int androidSpeechPitch = 50;
 
         private SpeechSettings() {
+        }
+    }
+
+    public static final class MiningRadar {
+        public boolean enabled = false;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
+        public int range = 6;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 60;
+
+        private MiningRadar() {
+        }
+    }
+
+    public static final class ElytraAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private ElytraAwareness() {
+        }
+    }
+
+    public static final class FallWarning {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+        public int threshold = 3;
+        public double lookaheadSeconds = 1.0;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private FallWarning() {
+        }
+    }
+
+    public static final class MovementAssist {
+        public boolean enabled = true;
+
+        private MovementAssist() {
+        }
+    }
+
+    public static final class MovementRadar {
+        public boolean enabled = false;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
+        public int range = 4;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private MovementRadar() {
+        }
+    }
+
+    public static final class ToolHarvestAwareness {
+        public boolean enabled = true;
+
+        private ToolHarvestAwareness() {
+        }
+    }
+
+    public static final class HostileRadar {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+        public int range = 16;
+        public boolean meleeRangeAlertEnabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 70;
+
+        private HostileRadar() {
+        }
+    }
+
+    public static final class DebugOverlay {
+        public boolean enabled = true;
+
+        private DebugOverlay() {
+        }
+    }
+
+    public static final class EyeOfEnderAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private EyeOfEnderAwareness() {
+        }
+    }
+
+    public static final class ArrowHitAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int volume = 100;
+
+        private ArrowHitAwareness() {
+        }
+    }
+
+    public static final class DurabilityAwareness {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int warningThreshold = 20;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        public int criticalThreshold = 5;
+
+        private DurabilityAwareness() {
         }
     }
 
@@ -236,6 +410,87 @@ public final class Config implements ConfigData {
         }
     }
 
+    public static final class CombatLock {
+        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
+        @ConfigEntry.Gui.Tooltip
+        public int range = 32;
+
+        private CombatLock() {
+        }
+    }
+
+    public static final class CombatBeacon {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
+        @ConfigEntry.Gui.Tooltip
+        public int range = 32;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int volume = 100;
+
+        private CombatBeacon() {
+        }
+    }
+
+    public static final class BowBeacon {
+        public boolean enabled = true;
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+        @ConfigEntry.Gui.Tooltip
+        public int volume = 100;
+
+        private BowBeacon() {
+        }
+    }
+
+    public static final class MountJumpCue {
+        public boolean enabled = true;
+
+        private MountJumpCue() {
+        }
+    }
+
+    public static final class TreeChoppingAssist {
+        public boolean enabled = true;
+
+        private TreeChoppingAssist() {
+        }
+    }
+
+    public static final class OreMiningAssist {
+        public boolean enabled = true;
+
+        private OreMiningAssist() {
+        }
+    }
+
+    public static final class AnimalFeedingCue {
+        public boolean enabled = true;
+
+        private AnimalFeedingCue() {
+        }
+    }
+
+    public static final class TitleNarration {
+        public boolean enabled = true;
+
+        private TitleNarration() {
+        }
+    }
+
+    public static final class FishingCatch {
+        public boolean enabled = true;
+
+        private FishingCatch() {
+        }
+    }
+
+    public static final class TameNotification {
+        public boolean enabled = true;
+
+        private TameNotification() {
+        }
+    }
+
     public static final class NarrateCrosshair {
         public boolean enabled = true;
         @ConfigExtension.Registry(registry = WorldNarrator.class, i18n = "narrator")
@@ -292,6 +547,10 @@ public final class Config implements ConfigData {
     public static final class AccessMenu {
         public boolean enabled = true;
         @ConfigEntry.Gui.CollapsibleObject
+        public FlatAreaFinder flatAreaFinder = new FlatAreaFinder();
+        @ConfigEntry.Gui.CollapsibleObject
+        public WaterExit waterExit = new WaterExit();
+        @ConfigEntry.Gui.CollapsibleObject
         public FluidDetector fluidDetector = new FluidDetector();
         @ConfigExtension.Registry(registry = AccessMenuFunction.class, i18n = "access_menu_function")
         public Identifier[] functions = new Identifier[]{
@@ -300,6 +559,8 @@ public final class Config implements ConfigData {
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "light_level"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_water"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_lava"),
+                Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_flat_area"),
+                Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "find_water_exit"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "biome"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "time"),
                 Identifier.fromNamespaceAndPath(MainClass.MOD_ID, "xp"),
@@ -311,6 +572,46 @@ public final class Config implements ConfigData {
         public ShortcutBar shortcutBar = new ShortcutBar();
 
         private AccessMenu() {
+        }
+
+        /**
+         * What "big enough to build on" means, and how far to look for it. The range and the height band together
+         * keep the scan to the ground the player could walk to, so a search never takes long and never reaches into
+         * chunks that are not loaded.
+         */
+        public static final class FlatAreaFinder {
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+            @ConfigEntry.Gui.Tooltip
+            public int width = 5;
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+            @ConfigEntry.Gui.Tooltip
+            public int depth = 5;
+            @ConfigEntry.BoundedDiscrete(min = 4, max = 32)
+            @ConfigEntry.Gui.Tooltip
+            public int range = 16;
+            @ConfigEntry.BoundedDiscrete(min = 2, max = 32)
+            @ConfigEntry.Gui.Tooltip
+            public int verticalRange = 8;
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 8)
+            @ConfigEntry.Gui.Tooltip
+            public int maxResults = 3;
+
+            private FlatAreaFinder() {
+            }
+        }
+
+        /**
+         * How far the search for a way out of the water may look. A cube rather than a sphere, since the flood only
+         * ever steps one block along an axis at a time; a larger radius reaches further across a lake, at the cost of
+         * more of the world being looked at before an answer comes back.
+         */
+        public static final class WaterExit {
+            @ConfigEntry.BoundedDiscrete(min = 4, max = 64)
+            @ConfigEntry.Gui.Tooltip
+            public int radius = 32;
+
+            private WaterExit() {
+            }
         }
 
         public static final class FluidDetector {

@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.minecraft.client.gui.Hud;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Util;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,18 +14,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import org.mcaccess.minecraftaccess.Config;
 import org.mcaccess.minecraftaccess.MainClass;
+import org.mcaccess.minecraftaccess.utils.OverlayRepeatFilter;
 
 /**
- * Narrates the currently selected hotbar item's name and the action bar.
- * Narrates titles
+ * Narrates the selected hotbar item's name and the action bar. Titles are read by
+ * {@link org.mcaccess.minecraftaccess.features.TitleReader} instead, once both a title and its subtitle have landed.
  */
 @Mixin(Hud.class)
 abstract class HudMixin {
-    @Shadow
-    private Component title;
-
-    @Shadow
-    private Component subtitle;
+    @Unique
+    private final OverlayRepeatFilter overlayRepeatFilter = new OverlayRepeatFilter();
 
     @Unique
     private String previousActionBarContent = "";
@@ -33,18 +31,24 @@ abstract class HudMixin {
     @Inject(method = "setOverlayMessage(Lnet/minecraft/network/chat/Component;Z)V", at = @At("HEAD"))
     private void narrateActionbar(Component string, boolean animate, CallbackInfo ci) {
         Config config = Config.getInstance();
-        if (config.features.actionBarEnabled) {
-            String msg = string.getString();
-            boolean contentChanged = !previousActionBarContent.equals(msg);
-            if (contentChanged) {
-                if (config.features.onlyNarrateActionBarUpdates) {
-                    onlyNarrateChangedParts(msg);
-                } else {
-                    MainClass.narrate(msg, true);
-                }
-                previousActionBarContent = msg;
-            }
+        if (!config.features.actionBarEnabled) {
+            return;
         }
+        String msg = string.getString();
+        if (!overlayRepeatFilter.shouldNarrate(msg, Util.getMillis())) {
+            return;
+        }
+        if (previousActionBarContent.equals(msg)) {
+            // The same text again, but the earlier copy has faded: read all of it rather than the nothing a
+            // diff against itself would leave.
+            previousActionBarContent = "";
+        }
+        if (config.features.onlyNarrateActionBarUpdates) {
+            onlyNarrateChangedParts(msg);
+        } else {
+            MainClass.narrate(msg, true);
+        }
+        previousActionBarContent = msg;
     }
 
     @Unique
@@ -54,17 +58,6 @@ abstract class HudMixin {
         parts.removeAll(previousParts);
         String narration = String.join(", ", parts);
         MainClass.narrate(narration, true);
-    }
-
-    @Inject(method = "setTitle", at = @At("TAIL"))
-    private void setTitleMixin(Component title, CallbackInfo ci) {
-        MainClass.narrate(title.getString(), true);
-        if (subtitle != null) MainClass.narrate(subtitle.getString(), false);
-    }
-
-    @Inject(method = "setSubtitle", at = @At("HEAD"))
-    private void setSubtitleMixin(Component subtitle, CallbackInfo ci) {
-        if (title != null && this.subtitle == null) MainClass.narrate(subtitle.getString(), false);
     }
 
     @Unique

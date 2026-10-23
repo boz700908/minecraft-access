@@ -107,14 +107,14 @@ These resources are tutorials and showcases about how to play Minecraft with thi
 * Installation tutorial video on Bilibili in Chinese (no English subtitles), uploaded 2023-05-06:
   [【我的世界·MC】视障辅助MOD安装与使用教程](https://www.bilibili.com/video/BV1W24y1T7f9) by 红马尾战士紫月sama.
   The tutorial includes mod installation, game launching, and brief instructions on mod usage and game playing.
-  Partially outdated, tolk is now installed automatically,
+  Partially outdated, nothing has to be installed beside the mod now,
   and this mod doesn't need the `fabric-api` mod as a dependency for now,
   see the [setup guide]({{% relref "/setup/basic" %}}) for full current instructions in text form.
 * Installation tutorial video on YouTube in English, uploaded 2023-03-21:
   [How to Install Mine Craft Access, a mine craft java mod for the blind](https://www.youtube.com/watch?v=MTRG3S0xeeg)
   by Logic Pro X Gaming.
   A tutorial includes mod installation and game launching.
-  Partially outdated, tolk is now installed automatically,
+  Partially outdated, nothing has to be installed beside the mod now,
   and this mod doesn't need the `fabric-api` mod as a dependency for now,
   see the [setup guide]({{% relref "/setup/basic" %}}) for full current instructions in text form.
 
